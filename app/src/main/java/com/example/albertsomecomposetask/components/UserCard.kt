@@ -23,6 +23,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.example.albertsomecomposetask.R
 import com.example.albertsomecomposetask.model.DummyUser
 
@@ -46,7 +47,7 @@ fun UserCard(user: DummyUser){
             verticalAlignment = Alignment.CenterVertically
         ){
             Box{
-                CircleImageView()
+                CircleImageView(user.image)
             }
 
             Box(
@@ -62,15 +63,15 @@ fun UserCard(user: DummyUser){
 }
 
 @Composable
-fun CircleImageView(){
-    Image(
-        painter = painterResource(id = R.drawable.ic_user),
+fun CircleImageView(userImage:String){
+    AsyncImage(
+        model = userImage,
+        placeholder = painterResource(id = R.drawable.ic_user),
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .size(80.dp)
             .clip(CircleShape)
-            .border(5.dp,Color.Gray,CircleShape)
-            .padding(20.dp),
+            .border(3.dp,Color.Gray,CircleShape),
         contentDescription = "Circle Image"
     )
 }
@@ -84,7 +85,7 @@ fun UserName(name:String){
             modifier = Modifier.padding(top = 5.dp)
         )
         Text(
-            text = "$name",
+            text = name,
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(start = 8.dp)
         )
